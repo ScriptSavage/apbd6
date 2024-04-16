@@ -61,6 +61,19 @@ public class AnimalsController : ControllerBase
     [HttpPost]
     public IActionResult AddAnimal(AddAnimal addAnimal)
     {
+        // polaczenie do bazy
+        using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("Default"));
+        connection.Open();
+        
+        
+        
+        //Definicja Command
+
+        SqlCommand command = new SqlCommand();
+        command.Connection = connection;
+        command.CommandText = $"INSERT INTO Animal VALUES('{addAnimal}','','','')";
+        //command.Parameters.AddWithValue(@animalName, addAnimal.Name);
+
         return Created();
     }
 
